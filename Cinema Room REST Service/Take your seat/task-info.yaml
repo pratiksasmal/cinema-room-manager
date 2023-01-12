@@ -259,7 +259,38 @@ files:
         }
     }
   learner_created: true
-- name: src/cinema/Seats.java
+- name: src/cinema/SeatsController.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
+    @RestController
+    public class SeatsController {
+        public Seats getAllSeats() {
+            int total_rows = 9;
+            int total_columns = 9;
+            List<Seat> seats = new ArrayList<>();
+            for (int row = 1; row <= total_rows; row++) {
+                for (int column = 1; column <= total_columns; column++) {
+                    seats.add(new Seat(row, column));
+                }
+            }
+            return new Seats(total_rows, total_columns, seats);
+        }
+
+        @GetMapping("/seats")
+        public Seats getSeats() {
+            return getAllSeats();
+        }
+    }
+  learner_created: true
+- name: src/cinema/Cinema.java
   visible: true
   text: |
     package cinema;
@@ -303,37 +334,9 @@ files:
         }
     }
   learner_created: true
-- name: src/cinema/SeatsController.java
-  visible: true
-  text: |
-    package cinema;
-
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RestController;
-
-    import java.util.ArrayList;
-    import java.util.List;
-
-    @RestController
-    public class SeatsController {
-        public Seats getAllSeats() {
-            int total_rows = 9;
-            int total_columns = 9;
-            List<Seat> seats = new ArrayList<>();
-            for (int row = 1; row <= total_rows; row++) {
-                for (int column = 1; column <= total_columns; column++) {
-                    seats.add(new Seat(row, column));
-                }
-            }
-            return new Seats(total_rows, total_columns, seats);
-        }
-
-        @GetMapping("/seats")
-        public Seats getSeats() {
-            return getAllSeats();
-        }
-    }
-  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13376#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Tue, 10 Jan 2023 16:19:21 UTC"
+record: 2
