@@ -49,6 +49,22 @@ public class SeatsController {
         //400 is (Bad Request)
     }
 
+    //post request to handle returning of ticket
+    @PostMapping("/return")
+    public ResponseEntity<?> returnTicket(@RequestBody Token token) {
+        List<OrderedSeat> orderedSeats = cinema.getOrderedSeats();
+        for (OrderedSeat orderedSeat : orderedSeats) {
+
+            //if token exists then return ticket
+            if (orderedSeat.getToken().equals(token.getToken())) {
+                orderedSeats.remove(orderedSeat);
+                cinema.getAvailable_seats().add(orderedSeat.getTicket());
+                return new ResponseEntity<>(Map.of("returned_ticket", orderedSeat.getTicket()), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(Map.of("error", "Wrong token!"), HttpStatus.BAD_REQUEST);
+    }
+
 }
 
 class Token {
