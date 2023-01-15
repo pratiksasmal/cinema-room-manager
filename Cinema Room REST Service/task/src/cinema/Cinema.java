@@ -1,15 +1,21 @@
 package cinema;
+
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Cinema {
     public int total_rows;
     public int total_columns;
     public List<Seat> available_seats;
 
+    @JsonIgnore
+    private List<OrderedSeat> orderedSeats;
+
     public Cinema(int total_rows, int total_columns, List<Seat> available_seats) {
         this.total_rows = total_rows;
         this.total_columns = total_columns;
         this.available_seats = available_seats;
+        this.orderedSeats = new ArrayList<>();
     }
 
     public static Cinema getAllSeats(int rows, int columns) {
@@ -45,5 +51,13 @@ public class Cinema {
 
     public void setAvailable_seats(List<Seat> available_seats) {
         this.available_seats = available_seats;
+    }
+
+    public List<OrderedSeat> getOrderedSeats() {
+        return orderedSeats;
+    }
+
+    public void setOrderedSeats(List<OrderedSeat> orderedSeats) {
+        this.orderedSeats = orderedSeats;
     }
 }
